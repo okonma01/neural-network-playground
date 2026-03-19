@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neural Network Playground</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Neural Network Playground</h1>
+    <p>Watch a tiny network learn a <strong>relation</strong>: inside shape = 1, outside = 0.</p>
+  </header>
+
+  <main class="split-lab">
+    <section class="canvas-pane">
+      <canvas id="heatmap" width="720" height="720" aria-label="Prediction heatmap"></canvas>
+      <canvas id="scatter" width="720" height="720" aria-label="Training points overlay"></canvas>
+      <div class="legend">
+        <span><i class="swatch low"></i> outside (0)</span>
+        <span><i class="swatch high"></i> inside (1)</span>
+      </div>
+    </section>
+
+    <aside class="controls-pane">
+      <div class="card">
+        <label title="Pick a target relation.">Shape</label>
+        <select id="shape"></select>
+      </div>
+
+      <div class="card two-col">
+        <div>
+          <label title="Total sampled points used for training.">Point Density</label>
+          <input id="density" type="range" min="200" max="2400" step="100" value="1000" />
+          <output id="densityOut">1000</output>
+        </div>
+        <div>
+          <label title="How many train steps are executed per frame.">Speed</label>
+          <input id="speed" type="range" min="1" max="20" step="1" value="6" />
+          <output id="speedOut">6x</output>
+        </div>
+      </div>
+
+      <div class="card two-col">
+        <div>
+          <label title="Training stops automatically at this epoch.">Max Epochs</label>
+          <input id="maxEpochs" type="number" min="50" max="5000" step="50" value="700" />
+        </div>
+        <div>
+          <label title="Hidden layer definitions. Example: 16,16">Layers</label>
+          <input id="layers" type="text" value="16,16" />
+        </div>
+      </div>
+
+      <div class="card two-col">
+        <div>
+          <label title="Activation for hidden layers.">Activation</label>
+          <select id="activation">
+            <option value="relu">ReLU</option>
+            <option value="tanh" selected>Tanh</option>
+            <option value="sigmoid">Sigmoid</option>
+            <option value="sin">Sin</option>
+          </select>
+        </div>
+        <div>
+          <label title="Show sampled training points on top of heatmap.">Show Points</label>
+          <input id="showPoints" type="checkbox" />
+        </div>
+      </div>
+
+      <details class="card">
+        <summary>Advanced</summary>
+        <div class="advanced-grid">
+          <div>
+            <label title="Gradient descent step size.">Learning Rate</label>
+            <input id="lr" type="number" min="0.0001" max="0.2" step="0.0005" value="0.01" />
+          </div>
+          <div>
+            <label title="How many examples per batch.">Batch Size</label>
+            <input id="batch" type="number" min="16" max="512" step="16" value="128" />
+          </div>
+          <div>
+            <label title="Optimizer used during backprop.">Optimizer</label>
+            <select id="opt">
+              <option value="adam" selected>Adam</option>
+              <option value="sgd">SGD</option>
+              <option value="rmsprop">RMSProp</option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+      <div class="card btn-row">
+        <button id="train">Train</button>
+        <button id="pause">Pause</button>
+        <button id="reset" class="ghost">Reset</button>
+      </div>
+
+      <div class="card">
+        <div class="stats">
+          <span>Epoch: <strong id="epoch">0</strong></span>
+          <span>Loss: <strong id="loss">-</strong></span>
+        </div>
+        <progress id="progress" max="700" value="0"></progress>
+        <canvas id="lossChart" width="320" height="120" aria-label="Loss chart"></canvas>
+      </div>
+
+      <details class="card" open>
+        <summary>Network Diagram</summary>
+        <canvas id="netViz" width="320" height="180" aria-label="Network architecture"></canvas>
+      </details>
+
+      <p id="doneBanner" class="done" hidden>Great run. Try another shape or tweak the network.</p>
+    </aside>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
