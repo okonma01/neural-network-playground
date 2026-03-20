@@ -43,7 +43,7 @@ select {
 .app-shell {
   width: min(1400px, calc(100vw - 40px));
   margin: 0 auto;
-  padding: 10px 0 12px;
+  padding: 10px 12px 12px;
   display: grid;
   gap: 10px;
 }
@@ -75,6 +75,28 @@ select {
 .app-header h1 {
   font-size: clamp(1.5rem, 2.0vw, 2.2rem);
   line-height: 1.05;
+}
+
+.app-footer {
+  padding: 10px 4px 14px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.app-footer a {
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+.app-footer a:hover {
+  color: var(--ink);
+}
+
+.footer-sep {
+  opacity: 0.45;
 }
 
 .intro-copy {

@@ -3,7 +3,6 @@ import HeatmapCanvas from "./components/HeatmapCanvas";
 import ShapePicker from "./components/ShapePicker";
 import NetDiagram from "./components/NetDiagram";
 import Controls from "./components/Controls";
-import Tooltip from "./components/Tooltip";
 import { buildModel, getWeights, predictGrid, trainStep } from "./lib/model";
 import { loadShapeCatalog } from "./lib/shapes";
 
@@ -289,7 +288,7 @@ function App() {
           <p className="eyebrow">See a neural net learn in real time</p>
           <h1>Neural Playground</h1>
           <p className="intro-copy">
-            Pick a shape and hit Train. Watch the network learn to tell inside from outside — purely from examples. Adjust the layers and nodes on the right to change how it learns.
+            Pick a shape and hit Train. Watch the network learn which points form the shape, and which points don't. Adjust the hyperparameters on the right to change how it learns.
           </p>
         </div>
         <div className="intro-note">
@@ -335,6 +334,12 @@ function App() {
 
         <NetDiagram netSpec={netSpec} weights={weights} onChange={handleNetChange} />
       </main>
+
+      <footer className="app-footer">
+        <span>Built by <a href="https://okonma01.github.io" target="_blank" rel="noreferrer">okonma01</a></span>
+        <span className="footer-sep">·</span>
+        <a href="https://github.com/okonma01/neural-network-playground" target="_blank" rel="noreferrer">GitHub</a>
+      </footer>
     </div>
   );
 }
