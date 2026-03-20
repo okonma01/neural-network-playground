@@ -10,7 +10,7 @@ The question this project asks is: can a neural network learn any shape? Not a c
 
 To make a shape learnable, the problem is framed as **binary classification**. Each training example is a 2D coordinate labeled 1 (inside) or 0 (outside). The network learns a decision boundary separating the two classes - and if training succeeds, that boundary traces the shape.
 
-Shapes are `.svg` files sourced from [SVGREPO](https://www.svgrepo.com). The browser's own rendering engine determines the ground truth: for any point, `isPointInPath` says whether it's inside. Hence, there is no manual labeling.
+Shapes are `.svg` files sourced from [SVG Repo](https://www.svgrepo.com). The browser's own rendering engine determines the ground truth: for any point, `isPointInPath` says whether it's inside. Hence, there is no manual labeling.
 
 Points are sampled randomly across the plane, tested for containment, and shuffled into a balanced dataset. By default about 1500 points are used, split evenly between classes, with some samples drawn specifically near the boundary to sharpen the network's sense of the edge.
 
