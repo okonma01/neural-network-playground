@@ -2,25 +2,29 @@
 
 **Live demo:** [Neural Playground](https://okonma01.github.io/neural-network-playground/)
 
-Everyone knows by now that neural networks approximate functions. That idea has taken the world by storm, and for good reason. But mathematics is bigger than functions. Not every relation maps a single input to a single output. Not every object we care about can be described as a curve on a graph. A circle, a logo, a letter - these are sets of points, regions of the plane, shapes. And shapes are relations.
+Everyone knows by now that neural networks approximate functions. That idea has taken the world by storm, and for good reason. But not everything we care about is naturally expressed as a function. A circle, a logo, a letter — these are not curves on a graph, but regions of space: sets of points that belong together.
 
-The question this project asks is: can a neural network learn any shape? Not a curve it can draw, but a region it can recognize - answering, for a given point in 2D space, whether that point forms part of the shape. The answer, in theory, is yes. Watching it happen in real time is even more fascinating!
+And shapes can be described as *relations over space* — specifically, whether a point belongs to a set.
+
+So instead of asking whether a network can fit a function, we can ask a different question: can it learn such membership relations?
+
+In other words, can a neural network learn a shape?
 
 ## The Setup
 
-To make a shape learnable, the problem is framed as **binary classification**. Each training example is a 2D coordinate labeled 1 (inside) or 0 (outside). The network learns a decision boundary separating the two classes - and if training succeeds, that boundary traces the shape.
+To make a shape learnable, we recast it as **binary classification** via an indicator function. Each point in the plane is assigned 1 (inside) or 0 (outside). The network learns an approximation to this function, and its decision boundary traces the resulting shape.
 
 Shapes are `.svg` files sourced from [SVG Repo](https://www.svgrepo.com). The browser's own rendering engine determines the ground truth: for any point, `isPointInPath` says whether it's inside. Hence, there is no manual labeling.
 
 Points are sampled randomly across the plane, tested for containment, and shuffled into a balanced dataset. By default about 1500 points are used, split evenly between classes, with some samples drawn specifically near the boundary to sharpen the network's sense of the edge.
 
-The network itself is small by design - a few hidden layers, configurable activations (ReLU, sigmoid, tanh, sin), trained with Adam and binary cross-entropy. Its hyperparameters are adjustable so you can see how they affect learning. The training loop runs in the browser, with no external dependencies - just vanilla JavaScript.
+The network itself is small by design - a few hidden layers, configurable activations (ReLU, sigmoid, tanh, sin), trained with the Adam optimizer and binary cross-entropy loss. Its hyperparameters are adjustable so you can see how they affect learning. The training loop runs in the browser without any external dependencies.
 
 ## What It Shows
 
-Most introductions to neural networks show function fitting - a curve drawn through data. That framing is useful but limiting. A network is not drawing anything. It is partitioning space. Every neuron applies a linear cut to its inputs; the composition of all those cuts, layer by layer, produces a region. That region, after training, approximates the target shape.
+Most introductions to neural networks show function fitting - a curve drawn through data. That framing is useful but limiting. A network is not drawing anything; it is partitioning space. Each neuron applies a linear cut to its inputs; the composition of these cuts, layer by layer, defines increasingly complex regions. After training, these regions align with the target shape.
 
-What makes any shape learnable - not just simple ones - is that the Universal Approximation Theorem extends beyond function graphs. It applies to indicator functions too: any measurable region can be approximated arbitrarily well by a sufficiently expressive network. The yin-yang symbol, a brand logo, the contour of a continent - all of these are, in principle, within reach. The playground is an invitation to test that claim.
+What makes complex shapes learnable is that the Universal Approximation Theorem can be applied to indicator functions. A region can be represented by a function that is 1 inside and 0 outside, and neural networks can approximate such functions arbitrarily well (in an almost-everywhere sense) given sufficient capacity. The yin-yang symbol, a brand logo, the contour of a continent—all are, in principle, within reach. The playground is an invitation to test that claim.
 
 ---
 
