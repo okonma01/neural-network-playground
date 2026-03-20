@@ -1,5 +1,7 @@
 # Neural Network Playground
 
+**Live demo:** [Neural Playground](https://okonma01.github.io/neural-network-playground/)
+
 Everyone knows by now that neural networks approximate functions. That idea has taken the world by storm, and for good reason. But mathematics is bigger than functions. Not every relation maps a single input to a single output. Not every object we care about can be described as a curve on a graph. A circle, a logo, a letter - these are sets of points, regions of the plane, shapes. And shapes are relations.
 
 The question this project asks is: can a neural network learn any shape? Not a curve it can draw, but a region it can recognize - answering, for a given point in 2D space, whether that point forms part of the shape. The answer, in theory, is yes. Watching it happen in real time is even more fascinating!
